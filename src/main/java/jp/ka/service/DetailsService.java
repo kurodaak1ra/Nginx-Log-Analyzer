@@ -8,10 +8,7 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class DetailsService {
@@ -56,6 +53,7 @@ public class DetailsService {
 			return null;
 		}
 
+		Collections.reverse(list);
 		map.put("list", list);
 		map.put("count", count);
 		return map;

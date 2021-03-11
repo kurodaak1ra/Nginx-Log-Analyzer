@@ -72,17 +72,13 @@
       <td>`+item.httpReferer+`</td>
       <td>`+item.httpUserAgent+`</td>
     `
+    tr.addEventListener('click', function() {
+      tr.classList.toggle('active')
+    })
     document.getElementById("tbody").append(tr)
   })
 
   const loading = document.getElementsByClassName('loading')
   loading[0].style.display = 'none'
-
-  const tr = document.getElementsByTagName('tr')
-  for (let i = 0; i < tr.length; i++) {
-    tr[i].addEventListener('click', function() {
-      tr[i].classList.toggle('active')
-    })
-  }
 </script>
 </html>
