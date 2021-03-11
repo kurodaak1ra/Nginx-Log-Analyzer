@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+log_dir: ""
+
+spring:
+  thymeleaf:
+    # 缓冲的配置
+    cache: false
+    check-template: true
+    check-template-location: true
+    # 开启MVC thymeleaf 视图解析
+    enabled: true
+    encoding: utf-8
+    mode: HTML5
+    prefix: classpath:/templates/
+    suffix: .html
+

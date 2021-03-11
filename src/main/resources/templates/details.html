@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/analyzer/css/details.css">
+  <title>Nginx Log Analyser - Details</title>
+</head>
+<body>
+  <p class="main-title">Total Log: [[ ${count} ]]</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>RemoteAddr</th>
+        <th>HttpXForwardedFor</th>
+        <th>TimeLocal (Browser TimeZone)</th>
+        <th>Method</th>
+        <th>Status</th>
+        <th>BodyBytesSent</th>
+        <th>SSLProtocol</th>
+        <th>SSLCipher</th>
+        <th>RequestTime</th>
+        <th>RemoteUser</th>
+        <th>UpstreamAddr</th>
+        <th>UpstreamResponseTime</th>
+        <th>URI</th>
+        <th>HttpReferer</th>
+        <th>HttpUserAgent</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <div class="loading">
+    <div class="content">
+      <div class="inner">
+        <p>Loading. . .</p>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="/analyzer/js/common.js"></script>
+<script th:inline="javascript">
+  function format(unix) {
+    const date = new Date(parseInt(unix))
+    return date.getFullYear() +
+      "-" + (date.getMonth()+1 < 10 ? "0"+(date.getMonth()+1) : date.getMonth()+1) +
+      "-" + (date.getDate() < 10 ? "0"+date.getDate() : date.getDate()) +
+      " " + (date.getHours() < 10 ? "0"+date.getHours() : date.getHours()) +
+      ":" + (date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes()) +
+      ":" + (date.getSeconds() < 10 ? "0"+date.getSeconds() : date.getSeconds())
+  }
+
+  [[ ${list} ]].forEach(item => {
+    const tr = document.createElement("tr")
+    tr.innerHTML = `
+      <td>`+item.remoteAddr+`</td>
+      <td>`+item.httpXForwardedFor+`</td>
+      <td>`+format(item.timeLocal)+`</td>
+      <td>`+item.method+`</td>
+      <td>`+item.status+`</td>
+      <td>`+item.bodyBytesSent+`</td>
+      <td>`+item.sslprotocol+`</td>
+      <td>`+item.sslcipher+`</td>
+      <td>`+item.requestTime+`</td>
+      <td>`+item.remoteUser+`</td>
+      <td>`+item.upstreamAddr+`</td>
+      <td>`+item.upstreamResponseTime+`</td>
+      <td>`+item.uri+`</td>
+      <td>`+item.httpReferer+`</td>
+      <td>`+item.httpUserAgent+`</td>
+    `
+    document.getElementById("tbody").append(tr)
+  })
+
+  const loading = document.getElementsByClassName('loading')
+  loading[0].style.display = 'none'
+
+  const tr = document.getElementsByTagName('tr')
+  for (let i = 0; i < tr.length; i++) {
+    tr[i].addEventListener('click', function() {
+      tr[i].classList.toggle('active')
+    })
+  }
+</script>
+</html>

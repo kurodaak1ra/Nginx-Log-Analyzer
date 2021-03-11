@@ -1,0 +1,149 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, .app {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.main-title {
+  color: rgb(0, 189, 163);
+  font-size: 22px;
+  font-weight: bold;
+  padding: 20px 0 0 20px;
+}
+
+.app .content {
+  width: 100%;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(10, 1fr);
+  grid-auto-rows: minmax(100px, auto);
+
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+@media only screen and (max-width: 499px) {
+  .app .content {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+@media only screen and (min-width: 500px) {
+  .app .content {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+@media only screen and (min-width: 1000px) {
+  .app .content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media only screen and (min-width: 1500px) {
+  .app .content {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media only screen and (min-width: 2000px) {
+  .app .content {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media only screen and (min-width: 2500px) {
+  .app .content {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+@media only screen and (min-width: 3000px) {
+  .app .content {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+@media only screen and (min-width: 3500px) {
+  .app .content {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+@media only screen and (min-width: 4000px) {
+  .app .content {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+@media only screen and (min-width: 4500px) {
+  .app .content {
+    grid-template-columns: repeat(9, 1fr);
+  }
+}
+@media only screen and (min-width: 5000px) {
+  .app .content {
+    grid-template-columns: repeat(10, 1fr);
+  }
+}
+
+.app .content > div {
+  height: 460px;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.3);
+}
+
+.win, .loading {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.win .content, .loading .content {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.win .content .inner {
+  width: 400px;
+  height: 150px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 70px 0 0;
+  position: relative;
+  border-radius: 10px;
+}
+
+.loading .content .inner {
+  width: 80px;
+  margin: 0 auto;
+}
+
+.win .content .inner p {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.win .content .inner .close {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: no-repeat center center / cover url("data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiIgc3R5bGU9ImZpbGw6ICMwMGJkYTMiIHZpZXdCb3g9IjAgMCAxMDMyIDEwMjQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBwLWlkPSIyMzAxIj4KICA8cGF0aCBkPSJNNTEwLjk1MjU0NyAwYy0yODIuMTkwOTE3IDAtNTEwLjk1MjU0NyAyMjguNzYxNjMxLTUxMC45NTI1NDcgNTEwLjk1MjU0NyAwIDI4Mi4xOTI5NiAyMjguNzYxNjMxIDUxMC45NTI1NDcgNTEwLjk1MjU0NyA1MTAuOTUyNTQ3IDI4Mi4xOTI5NiAwIDUxMC45NTI1NDctMjI4Ljc1OTU4NyA1MTAuOTUyNTQ3LTUxMC45NTI1NDdDMTAyMS45MDUwOTUgMjI4Ljc2MTYzMSA3OTMuMTQzNDY0IDAgNTEwLjk1MjU0NyAwek03MzAuMDY3Mzk0IDY2My44Mjk1NDljMTguMjkyMTAxIDE4LjI5MjEwMSAxOC4yOTIxMDEgNDcuOTQ3Nzg3IDAgNjYuMjM5ODg4LTE4LjI5MjEwMSAxOC4yOTIxMDEtNDcuOTQ3Nzg3IDE4LjI5MjEwMS02Ni4yMzk4ODggMGwtMTUyLjg3NzAwMi0xNTIuODc3MDAyLTE1Mi44NzcwMDIgMTUyLjg3NzAwMmMtMTguMjkyMTAxIDE4LjI5MjEwMS00Ny45NDc3ODcgMTguMjkyMTAxLTY2LjIzOTg4OCAwLTE4LjI5MjEwMS0xOC4yOTIxMDEtMTguMjkyMTAxLTQ3Ljk0Nzc4NyAwLTY2LjIzOTg4OGwxNTIuODc3MDAyLTE1Mi44NzcwMDItMTUyLjg3NzAwMi0xNTIuODc3MDAyYy0xOC4yOTIxMDEtMTguMjkyMTAxLTE4LjI5MjEwMS00Ny45NDc3ODcgMC02Ni4yMzk4ODggMTguMjkyMTAxLTE4LjI5MjEwMSA0Ny45NDc3ODctMTguMjkyMTAxIDY2LjIzOTg4OCAwbDE1Mi44NzcwMDIgMTUyLjg3NzAwMiAxNTIuODc3MDAyLTE1Mi44NzcwMDJjMTguMjkyMTAxLTE4LjI5MjEwMSA0Ny45NDc3ODctMTguMjkyMTAxIDY2LjIzOTg4OCAwIDE4LjI5MjEwMSAxOC4yOTIxMDEgMTguMjkyMTAxIDQ3Ljk0Nzc4NyAwIDY2LjIzOTg4OGwtMTUyLjg3NzAwMiAxNTIuODc3MDAyTDczMC4wNjczOTQgNjYzLjgyOTU0OXoiPjwvcGF0aD4KPC9zdmc+");
+}
+
+.win .content .inner div {
+  text-align: center;
+}
+
+.win .content .inner div a {
+  color: #00bda3;
+  margin: 0 40px;
+}

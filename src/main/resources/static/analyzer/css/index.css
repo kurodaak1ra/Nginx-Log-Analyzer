@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 20px 40px;
+}
+
+.app p {
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.app ul {
+  list-style: none;
+  margin-top: 20px;
+}
+
+.app ul li {
+  line-height: 40px;
+  border-bottom: 1px solid #000;
+}
+
+.app ul li span:first-child {
+  margin-right: 10px;
+}
+
+.app ul li span:first-child a {
+  color: #00bda3;
+  margin: 0 10px;
+}
