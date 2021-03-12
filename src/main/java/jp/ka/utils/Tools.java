@@ -40,7 +40,7 @@ public class Tools {
 		}
 	}
 
-	public static String geoip(String ip) {
+	public static String geoip(String ip, String lang) {
 		try {
 			String realIP = ip.split(",")[0];
 			if (realIP.equals("-")) {
@@ -52,10 +52,10 @@ public class Tools {
 			CountryResponse response = client.country(ipAddress);
 			Country country = response.getCountry();
 
-			if (country.getIsoCode() == null) {
+			if (country.getNames().get(lang) == null) {
 				return "NoFound";
 			}
-			return country.getIsoCode();
+			return country.getNames().get(lang);
 		} catch (Exception e) {
 			// e.printStackTrace();
 			String extension = FilenameUtils.getExtension(e.getClass().getName());

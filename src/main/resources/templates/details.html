@@ -48,8 +48,8 @@
     const tr = document.createElement("tr")
     tr.innerHTML = `
       <td>`+(index+1)+`</td>
-      <td>`+item.remoteAddr+`</td>
-      <td>`+item.httpXForwardedFor+`</td>
+      <td onclick="GET('`+item.remoteAddr+`')">`+item.remoteAddr+`</td>
+      <td onclick="GET('`+item.httpXForwardedFor+`')">`+item.httpXForwardedFor+`</td>
       <td>`+item.timeLocal+`</td>
       <td>`+item.method+`</td>
       <td>`+item.status+`</td>
@@ -72,5 +72,21 @@
 
   const loading = document.getElementsByClassName('loading')
   loading[0].style.display = 'none'
+
+  function GET(ip) {
+    const api = [[ ${api} ]]
+    if (api === '') return
+    const http = new XMLHttpRequest();
+    http.open('GET', api + ip)
+    http.send()
+    http.onreadystatechange = function() {
+      if (this.readyState === 4 && this.status === 200) {
+        const resp = JSON.parse(http.response)
+        if (resp.code === 0) {
+          console.log(resp.data)
+        }
+      }
+    }
+  }
 </script>
 </html>

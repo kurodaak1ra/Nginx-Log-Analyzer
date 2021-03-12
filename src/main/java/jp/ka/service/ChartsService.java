@@ -21,6 +21,9 @@ public class ChartsService {
 	@Value("${timezone}")
 	private String timezone;
 
+	@Value("${country_lang}")
+	private String lang;
+
 	public Map<String, Object> load(String fileName, Long date, String proxy, String real) {
 		if (!dir.substring(dir.length()-1).equals("/")) dir = dir+"/";
 
@@ -171,7 +174,7 @@ public class ChartsService {
 	}
 
 	private Map<String, Integer> country(Map<String, Integer> data, String country) {
-		String tmpCountry = Tools.geoip(country);
+		String tmpCountry = Tools.geoip(country, lang);
 		if (data.containsKey(tmpCountry)) {
 			data.put(tmpCountry, data.get(tmpCountry)+1);
 		} else {

@@ -5,6 +5,10 @@ log_dir: ""
 
 timezone: "Asia/Shanghai"
 
+country_lang: "zh-CN"
+
+ip_query_api: ""
+
 spring:
   thymeleaf:
     # 缓冲的配置

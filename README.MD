@@ -28,7 +28,28 @@ log_format main '$remote_addr #$remote_user #$time_local #$request '
 > 注意事项：  
 > log_dir 参数必须指定，否则报错  
 > timezone 参数非必须指定，默认为 Asia/Shanghai  
+> ip_query_api 参数非必须指定，默认为空  
+> country_lang 参数非必须指定，默认为 zh-CN  
 > server.port 参数非必须指定，默认启动在 8080 端口
+
+> 参数说明：  
+> timezone 呈现在浏览器中的时间所在的时区  
+> ip_query_api 列表中点击 IP 地址会调用 API 查询 IP 信息，并打印 response 在 console 中（免费接口 http(s)://ip.zxinc.org/api.php?type=json&ip=）  
+> country_lang 图表中国家块的横坐标显示的语言  
+```json
+{
+  "country_lang": "GeoIP 语言(文化)代码与国家地区对照表",
+  
+  "de": "USA",
+  "ru": "США",
+  "pt-BR": "Estados Unidos",
+  "ja": "アメリカ合衆国",
+  "en": "United States",
+  "fr": "États-Unis",
+  "zh-CN": "美国",
+  "es": "Estados Unidos"
+}
+```
 
 ### 使用指定路径访问设置
 ```
