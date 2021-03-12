@@ -83,9 +83,16 @@ public class Tools {
 		return null;
 	}
 
-	public static Date formatDateSimple(String str) {
+	public static String formatDateToString(String tz, Date date) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		sdf.setTimeZone(TimeZone.getTimeZone(tz));
+
+		return sdf.format(date);
+	}
+
+	public static Date formatDateSimple(String tz, String str) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+		sdf.setTimeZone(TimeZone.getTimeZone(tz));
 		try {
 			String format = sdf.format(formatDate(str));
 			return sdf.parse(format);

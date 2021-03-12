@@ -16,6 +16,9 @@ public class DetailsService {
 	@Value("${log_dir}")
 	private String dir;
 
+	@Value("${timezone}")
+	private String timezone;
+
 	public Map<String, Object> load(String filename, Long date, String proxy, String real) {
 		if (!dir.substring(dir.length()-1).equals("/")) dir = dir+"/";
 		List<Item> list = new ArrayList<>();
@@ -30,10 +33,10 @@ public class DetailsService {
 				if (s.length != 14) continue;
 				String[] req = s[3].split(" ");
 				if (req.length != 3) req = new String[]{"", "", ""};
-				long t = Tools.formatDate(s[2]).getTime();
+				Date t = Tools.formatDate(s[2]);
 
 				// 指定日期查询
-				if (date != null && (t < date || t >= date+86400000)) {
+				if (date != null && (t.getTime() < date || t.getTime() >= date+86400000)) {
 					continue;
 				}
 				// 指定 ip 查询（代理）
@@ -45,7 +48,7 @@ public class DetailsService {
 					continue;
 				}
 
-				list.add(new Item(s[0], s[1], t, req[0], req[1], req[2], s[4], s[5], s[6], s[7], s[8], s[9], s[10], s[11], s[12], s[13]));
+				list.add(new Item(s[0], s[1], Tools.formatDateToString(timezone, t), req[0], req[1], req[2], s[4], s[5], s[6], s[7], s[8], s[9], s[10], s[11], s[12], s[13]));
 				count++;
 			}
 		} catch (IOException e) {

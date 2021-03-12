@@ -3,6 +3,8 @@ server:
 
 log_dir: ""
 
+timezone: "Asia/Shanghai"
+
 spring:
   thymeleaf:
     # 缓冲的配置

@@ -18,6 +18,9 @@ public class ChartsService {
 	@Value("${log_dir}")
 	private String dir;
 
+	@Value("${timezone}")
+	private String timezone;
+
 	public Map<String, Object> load(String fileName, Long date, String proxy, String real) {
 		if (!dir.substring(dir.length()-1).equals("/")) dir = dir+"/";
 
@@ -41,7 +44,7 @@ public class ChartsService {
 				String[] s = line.split(" #");
 				if (s.length != 14) continue;
 				String[] req = s[3].split(" ");
-				Date t = Tools.formatDateSimple(s[2]);
+				Date t = Tools.formatDateSimple(timezone, s[2]);
 
 				// 指定日期查询
 				if (date != null && (t.getTime() < date || t.getTime() >= date+86400000)) {

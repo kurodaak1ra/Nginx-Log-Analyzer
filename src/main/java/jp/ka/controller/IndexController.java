@@ -22,7 +22,10 @@ public class IndexController {
 		@Override
 		public boolean accept(File pathname) {
 			String extension = FilenameUtils.getExtension(pathname.getName());
-			if (extension.equals("log") || pathname.isDirectory()) {
+			if (extension.matches("log.*")) {
+				return true;
+			}
+			if (pathname.isDirectory()) {
 				return true;
 			}
 			return false;

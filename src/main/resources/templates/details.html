@@ -16,7 +16,7 @@
         <th>#</th>
         <th>RemoteAddr</th>
         <th>HttpXForwardedFor</th>
-        <th>TimeLocal (Browser TimeZone)</th>
+        <th>TimeLocal</th>
         <th>Method</th>
         <th>Status</th>
         <th>BodyBytesSent</th>
@@ -44,23 +44,13 @@
 </body>
 <script src="/analyzer/js/common.js"></script>
 <script th:inline="javascript">
-  function format(unix) {
-    const date = new Date(parseInt(unix))
-    return date.getFullYear() +
-      "-" + (date.getMonth()+1 < 10 ? "0"+(date.getMonth()+1) : date.getMonth()+1) +
-      "-" + (date.getDate() < 10 ? "0"+date.getDate() : date.getDate()) +
-      " " + (date.getHours() < 10 ? "0"+date.getHours() : date.getHours()) +
-      ":" + (date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes()) +
-      ":" + (date.getSeconds() < 10 ? "0"+date.getSeconds() : date.getSeconds())
-  }
-
   [[ ${list} ]].forEach((item, index) => {
     const tr = document.createElement("tr")
     tr.innerHTML = `
       <td>`+(index+1)+`</td>
       <td>`+item.remoteAddr+`</td>
       <td>`+item.httpXForwardedFor+`</td>
-      <td>`+format(item.timeLocal)+`</td>
+      <td>`+item.timeLocal+`</td>
       <td>`+item.method+`</td>
       <td>`+item.status+`</td>
       <td>`+item.bodyBytesSent+`</td>

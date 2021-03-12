@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class Item {
 	String RemoteAddr;
 	String RemoteUser;
-	Long TimeLocal;
+	String TimeLocal;
 
 	// String Request;
 	String Method;

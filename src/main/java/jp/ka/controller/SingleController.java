@@ -3,6 +3,7 @@ package jp.ka.controller;
 import jp.ka.service.ChartsService;
 import jp.ka.service.DetailsService;
 import jp.ka.utils.Tools;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,9 @@ public class SingleController {
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+	@Value("${timezone}")
+	private String timezone;
+
 	@Resource
 	private ChartsService chartsService;
 
@@ -26,7 +30,7 @@ public class SingleController {
 	private DetailsService detailsService;
 
 	@RequestMapping("/charts/day/{date}/{filename}")
-	public String singleChartsDay(@PathVariable String date, @PathVariable String filename, String timezone, Model model) {
+	public String singleChartsDay(@PathVariable String date, @PathVariable String filename, Model model) {
 		sdf.setTimeZone(TimeZone.getTimeZone(timezone));
 		try {
 			Tools.chartModel(model, chartsService.load(filename, sdf.parse(date).getTime(), null, null));
@@ -52,7 +56,7 @@ public class SingleController {
 	}
 
 	@RequestMapping("/details/day/{date}/{filename}")
-	public String singleDetails(@PathVariable String date, @PathVariable String filename, String timezone, Model model) {
+	public String singleDetails(@PathVariable String date, @PathVariable String filename, Model model) {
 		sdf.setTimeZone(TimeZone.getTimeZone(timezone));
 		try {
 			Map<String, Object> map = detailsService.load(filename, sdf.parse(date).getTime(), null, null);
