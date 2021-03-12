@@ -13,6 +13,7 @@
   <table>
     <thead>
       <tr>
+        <th>#</th>
         <th>RemoteAddr</th>
         <th>HttpXForwardedFor</th>
         <th>TimeLocal (Browser TimeZone)</th>
@@ -53,9 +54,10 @@
       ":" + (date.getSeconds() < 10 ? "0"+date.getSeconds() : date.getSeconds())
   }
 
-  [[ ${list} ]].forEach(item => {
+  [[ ${list} ]].forEach((item, index) => {
     const tr = document.createElement("tr")
     tr.innerHTML = `
+      <td>`+(index+1)+`</td>
       <td>`+item.remoteAddr+`</td>
       <td>`+item.httpXForwardedFor+`</td>
       <td>`+format(item.timeLocal)+`</td>
