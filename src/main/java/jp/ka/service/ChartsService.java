@@ -46,7 +46,7 @@ public class ChartsService {
 			while ((line = br.readLine()) != null) {
 				String[] s = line.split(" #");
 				if (s.length != 14) continue;
-				String[] req = s[3].split(" ");
+				String[] req = s[11].split(" ");
 				Date t = Tools.formatDateSimple(timezone, s[2]);
 
 				// 指定日期查询
@@ -58,17 +58,17 @@ public class ChartsService {
 					continue;
 				}
 				// 指定 ip 查询（真实）
-				if (real != null && !real.equals(s[8])) {
+				if (real != null && !real.equals(s[1])) {
 					continue;
 				}
 
-				UserAgent userAgent = UserAgent.parseUserAgentString(s[7]);
+				UserAgent userAgent = UserAgent.parseUserAgentString(s[13]);
 				// 操作系统
 				os = os(os, userAgent);
 				// 浏览器
 				browser = browser(browser, userAgent);
 				// http 响应码
-				httpCode = httpCode(httpCode, s[4]);
+				httpCode = httpCode(httpCode, s[3]);
 				// 访问时间
 				visitTime = visitTime(visitTime, t);
 				// ip 地址
@@ -76,9 +76,9 @@ public class ChartsService {
 				// 国家
 				country = country(country, s[0]);
 				// 套 cf 后真实 ip
-				realIP = ip(realIP, s[8]);
+				realIP = ip(realIP, s[1]);
 				// 套 cf 后真实 ip 的国家
-				realCountry = country(realCountry, s[8]);
+				realCountry = country(realCountry, s[1]);
 				// 请求方式
 				method = method(method, req[0]);
 				// 访问的文件类型

@@ -31,7 +31,7 @@ public class DetailsService {
 			while ((line = br.readLine()) != null) {
 				String[] s = line.split(" #");
 				if (s.length != 14) continue;
-				String[] req = s[3].split(" ");
+				String[] req = s[11].split(" ");
 				if (req.length != 3) req = new String[]{"", "", ""};
 				Date t = Tools.formatDate(s[2]);
 
@@ -48,7 +48,7 @@ public class DetailsService {
 					continue;
 				}
 
-				list.add(new Item(s[0], s[1], Tools.formatDateToString(timezone, t), req[0], req[1], req[2], s[4], s[5], s[6], s[7], s[8], s[9], s[10], s[11], s[12], s[13]));
+				list.add(new Item(s[0], s[1], Tools.formatDateToString(timezone, t), s[3], s[4], s[5], s[6], s[7], s[8], s[9], s[10], req[0], req[1], req[2], s[12], s[13]));
 				count++;
 			}
 		} catch (IOException e) {

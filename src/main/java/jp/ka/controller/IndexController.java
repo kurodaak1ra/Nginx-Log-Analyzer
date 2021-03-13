@@ -53,10 +53,13 @@ public class IndexController {
 		}
 
 		List<String> filepaths = new ArrayList<>();
-		List<File> items = new Recursion().init(new File(dir).listFiles(fileFilter));
-		for (File item : items) {
-			String tmp = item.toString().replaceAll(dir, "").replaceAll("/", "_");
-			filepaths.add(tmp);
+		File[] files = new File(dir).listFiles(fileFilter);
+		if (files != null) {
+			List<File> items = new Recursion().init(files);
+			for (File item : items) {
+				String tmp = item.toString().replaceAll(dir, "").replaceAll("/", "_");
+				filepaths.add(tmp);
+			}
 		}
 		model.addAttribute("filepaths", filepaths);
 

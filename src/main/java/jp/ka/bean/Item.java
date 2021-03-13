@@ -9,22 +9,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Item {
 	String RemoteAddr;
-	String RemoteUser;
+	String HttpXForwardedFor;
 	String TimeLocal;
+	String Status;
+	String SSLProtocol;
+	String SSLCipher;
+	String RemoteUser;
+	String UpstreamAddr;
+	String UpstreamResponseTime;
+	String BodyBytesSent;
+	String RequestTime;
 
 	// String Request;
 	String Method;
 	String URI;
 	String Protocol;
 
-	String Status;
-	String BodyBytesSent;
 	String HttpReferer;
 	String HttpUserAgent;
-	String HttpXForwardedFor;
-	String SSLProtocol;
-	String SSLCipher;
-	String UpstreamAddr;
-	String RequestTime;
-	String UpstreamResponseTime;
 }

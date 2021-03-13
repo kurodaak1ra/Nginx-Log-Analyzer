@@ -11,11 +11,10 @@
 ### 硬性条件
 > 请【务必，务必，务必】将 nginx 日志格式设置为如下格式
 ```
-log_format main '$remote_addr #$remote_user #$time_local #$request '
-                '#$status #$body_bytes_sent #$http_referer '
-                '#$http_user_agent #$http_x_forwarded_for '
-                '#$ssl_protocol #$ssl_cipher #$upstream_addr '
-                '#$request_time #$upstream_response_time';
+log_format main '$remote_addr #$http_x_forwarded_for #$time_local #$status '
+                '#$ssl_protocol #$ssl_cipher #$remote_user #$upstream_addr '
+                '#$upstream_response_time #$body_bytes_sent #$request_time '
+                '#$request #$http_referer #$http_user_agent';
 ```
 
 ### 环境要求
