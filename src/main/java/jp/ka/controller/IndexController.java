@@ -22,6 +22,9 @@ public class IndexController {
 		@Override
 		public boolean accept(File pathname) {
 			String extension = FilenameUtils.getExtension(pathname.getName());
+			if (pathname.getName().matches(".*error.*")) {
+				return false;
+			}
 			if (extension.matches("log.*")) {
 				return true;
 			}

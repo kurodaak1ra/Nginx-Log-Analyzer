@@ -12,9 +12,9 @@
 > 请【务必，务必，务必】将 nginx 日志格式设置为如下格式
 ```
 log_format main '$remote_addr #$http_x_forwarded_for #$time_local #$status '
-                '#$ssl_protocol #$ssl_cipher #$remote_user #$upstream_addr '
-                '#$upstream_response_time #$body_bytes_sent #$request_time '
-                '#$request #$http_referer #$http_user_agent';
+                '#$ssl_protocol #$ssl_cipher #$upstream_addr #$upstream_response_time '
+                '#$body_bytes_sent #$request_time #$remote_user #$request '
+                '#$http_referer #$http_user_agent';
 ```
 
 ### 环境要求
