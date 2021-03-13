@@ -9,8 +9,13 @@ function pieOption(title, data) {
 
   return {
     title: {
-      text: title,
-      left: 'left'
+      text: title
+    },
+    toolbox: {
+      feature: {
+        dataView: { readOnly: false },
+        saveAsImage: {}
+      }
     },
     tooltip: {
       trigger: 'item',
@@ -60,14 +65,17 @@ function barOption(title, data) {
 
   return {
     title: {
-      text: title,
-      left: 10
+      text: title
     },
     toolbox: {
       feature: {
         dataZoom: {
           yAxisIndex: false
-        }
+        },
+        dataView: { readOnly: false },
+        magicType: { type: ['line', 'bar'] },
+        restore: {},
+        saveAsImage: {}
       }
     },
     tooltip: {
@@ -101,6 +109,7 @@ function barOption(title, data) {
     },
     series: [
       {
+        name: title,
         type: 'bar',
         large: true,
         data: vals,
