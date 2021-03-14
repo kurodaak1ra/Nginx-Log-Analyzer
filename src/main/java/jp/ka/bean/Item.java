@@ -14,11 +14,11 @@ public class Item {
 	String Status;
 	String SSLProtocol;
 	String SSLCipher;
-	String RemoteUser;
 	String UpstreamAddr;
 	String UpstreamResponseTime;
 	String BodyBytesSent;
 	String RequestTime;
+	String RemoteUser;
 
 	// String Request;
 	String Method;
