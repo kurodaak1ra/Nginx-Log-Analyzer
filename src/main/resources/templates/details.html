@@ -98,7 +98,7 @@
 
   function GET(ip) {
     const api = [[ ${api} ]]
-    if (api === '') return
+    if (api === '' || ip === '-') return
     loading.style.display = 'table'
     http.open('GET', api.replace('{addr}', ip))
     http.send()
@@ -111,8 +111,24 @@
     }
   }
 
+  function POST(ip) {
+    const api = [[ ${api} ]]
+    if (api === '' || ip === '-') return
+    loading.style.display = 'table'
+    http.open('POST', api.replace('{addr}', ip), true)
+    http.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
+    http.send()
+    http.onreadystatechange = function() {
+      loading.style.display = 'none'
+      if(http.readyState == 4 && http.status == 200){
+        response.style.display = 'table'
+        pre.innerHTML = jsonHighlight(JSON.parse(http.response))
+      }
+    }
+  }
+
   function jsonHighlight(json) {
-    if (typeof json != 'string') json = JSON.stringify(json, undefined, 4)
+    if (typeof json !== 'string') json = JSON.stringify(json, undefined, 4)
     json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>')
     return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
       let cls = 'number'
