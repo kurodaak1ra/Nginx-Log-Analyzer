@@ -103,10 +103,10 @@
     http.open('GET', api.replace('{addr}', ip))
     http.send()
     http.onreadystatechange = function() {
-      loading.style.display = 'none'
       if (this.readyState === 4 && this.status === 200) {
-        response.style.display = 'table'
         pre.innerHTML = jsonHighlight(JSON.parse(http.response))
+        loading.style.display = 'none'
+        response.style.display = 'table'
       }
     }
   }
@@ -119,10 +119,10 @@
     http.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
     http.send()
     http.onreadystatechange = function() {
-      loading.style.display = 'none'
       if(http.readyState == 4 && http.status == 200){
-        response.style.display = 'table'
         pre.innerHTML = jsonHighlight(JSON.parse(http.response))
+        loading.style.display = 'none'
+        response.style.display = 'table'
       }
     }
   }
