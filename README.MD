@@ -22,7 +22,7 @@ log_format main '$remote_addr #$http_x_forwarded_for #$time_local #$status '
 
 ### 使用方法
 ```
-[root@linux ~]# java -jar nginx-log-analyzer.jar --log_dir={nginx 日志目录路径} --timezone=Asia/Shanghai --server.port=8080
+[root@linux ~]# java -jar nginx-log-analyzer.jar --log_dir={nginx 日志目录路径} --timezone=Asia/Shanghai --ip_query_api=https://ip.zxinc.org/api.php?type=json&ip={addr} --country_lang=zh-CN --server.port=8080
 ```
 > 注意事项：  
 > log_dir 参数必须指定，否则报错  
@@ -33,7 +33,7 @@ log_format main '$remote_addr #$http_x_forwarded_for #$time_local #$status '
 
 > 参数说明：  
 > timezone 呈现在浏览器中的时间所在的时区  
-> ip_query_api 列表中点击 IP 地址会调用 API 查询 IP 信息，并打印 response 在 console 中（免费接口 http(s)://ip.zxinc.org/api.php?type=json&ip=）  
+> ip_query_api 列表中点击 IP 地址会调用 API 查询 IP 信息，并打印 response 在弹窗中，点击黑色蒙层关闭弹窗（免费接口 http(s)://ip.zxinc.org/api.php?type=json&ip=）  
 > country_lang 图表中国家块的横坐标显示的语言  
 ```json
 {

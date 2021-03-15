@@ -42,6 +42,12 @@
       </div>
     </div>
   </div>
+
+  <div class="response">
+    <div class="content">
+      <pre></pre>
+    </div>
+  </div>
 </body>
 <script src="/analyzer/js/common.js"></script>
 <script th:inline="javascript">
@@ -72,23 +78,57 @@
     document.getElementById("tbody").append(tr)
   })
 
-  const loading = document.getElementsByClassName('loading')
-  loading[0].style.display = 'none'
+  const loading = document.querySelector('.loading')
+  loading.style.display = 'none'
+
+  const response = document.querySelector('.response')
+  const pre = document.querySelector('.response .content pre')
+  response.addEventListener('click', function() {
+    response.style.display = 'none'
+  })
+  pre.addEventListener('click', function(e) {
+    if (e && e.stopPropagation) {
+      e.stopPropagation() // 因此它支持W3C的stopPropagation()方法
+    } else {
+      window.event.cancelBubble = true // 否则，我们需要使用IE的方式来取消事件冒泡
+    }
+  })
+
+  const http = new XMLHttpRequest()
 
   function GET(ip) {
     const api = [[ ${api} ]]
     if (api === '') return
-    const http = new XMLHttpRequest();
-    http.open('GET', api + ip)
+    loading.style.display = 'table'
+    http.open('GET', api.replace('{addr}', ip))
     http.send()
     http.onreadystatechange = function() {
+      loading.style.display = 'none'
       if (this.readyState === 4 && this.status === 200) {
-        const resp = JSON.parse(http.response)
-        if (resp.code === 0) {
-          console.log(resp.data)
-        }
+        response.style.display = 'table'
+        pre.innerHTML = jsonHighlight(JSON.parse(http.response))
       }
     }
+  }
+
+  function jsonHighlight(json) {
+    if (typeof json != 'string') json = JSON.stringify(json, undefined, 4)
+    json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>')
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+      let cls = 'number'
+      if (/^"/.test(match)) {
+        if (/:$/.test(match)) {
+          cls = 'key'
+        } else {
+          cls = 'string'
+        }
+      } else if (/true|false/.test(match)) {
+        cls = 'boolean'
+      } else if (/null/.test(match)) {
+        cls = 'null'
+      }
+      return '<span class="' + cls + '">' + match + '</span>'
+    })
   }
 </script>
 </html>
