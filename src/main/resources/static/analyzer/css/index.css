@@ -21,6 +21,7 @@ body {
 .app ul li {
   width: 100%;
   display: table;
+  table-layout: fixed;
   line-height: 40px;
   border-bottom: 1px solid #000;
 }
@@ -32,25 +33,35 @@ body {
 .app ul li > span {
   display: table-cell;
   vertical-align: middle;
+  padding: 0 10px;
 }
 
 .app ul li span:first-child {
-  width: 120px;
+  width: 110px;
 }
 
 .app ul li span:first-child a {
   color: #00bda3;
-  margin: 0 10px;
+}
+
+.app ul li span:first-child a:first-child {
+  margin-right: 20px;
 }
 
 .app ul li span:nth-child(2) {
-  width: 250px;
-  padding-left: 8px;
   border-left: 1px solid #000;
+  border-right: 1px solid #000;
 }
 
 .app ul li span:nth-child(3) {
+  width: 100px;
   font-size: 15px;
-  padding-left: 8px;
-  border-left: 1px solid #000;
+}
+
+.app ul li .filesize {
+  font-size: 15px;
+}
+
+.active {
+  background: rgba(0, 189, 163, 0.3);
 }

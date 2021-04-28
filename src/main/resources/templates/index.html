@@ -16,16 +16,21 @@
         <span>文件名</span>
         <span>文件大小</span>
       </li>
-      <li th:each="file : ${files}">
-        <span>
-          <a th:href="@{'charts/'+${file.name}}">图表</a>
-          <a th:href="@{'details/'+${file.name}}">列表</a>
+      <li th:each="file : ${files}" onclick="ck(this)">
+        <span class="btn">
+          <a target="_blank" th:href="@{'charts/'+${file.name}}">图表</a>
+          <a target="_blank" th:href="@{'details/'+${file.name}}">列表</a>
         </span>
-        <span th:text="${file.name.replaceAll('_', '/')}"></span>
-        <span th:text="${file.size}"></span>
+        <span class="filename" th:text="${file.name.replaceAll('_', '/')}"></span>
+        <span class="filesize" th:text="${file.size}"></span>
       </li>
     </ul>
   </div>
 </body>
 <script src="/analyzer/js/common.js"></script>
+<script>
+  function ck(_this) {
+    _this.classList.toggle('active')
+  }
+</script>
 </html>
