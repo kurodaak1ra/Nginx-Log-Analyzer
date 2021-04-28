@@ -1,5 +1,7 @@
 package jp.ka.controller;
 
+import jp.ka.bean.FileItem;
+import jp.ka.utils.Tools;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -40,7 +44,7 @@ public class IndexController {
 		if (!dir.substring(dir.length()-1).equals("/")) dir = dir+"/";
 
 		// 递归遍历文件夹内部类
-		class Recursion {
+		final class Recursion {
 			private List<File> items = new ArrayList<>();
 
 			private List<File> init(File[] files) {
@@ -55,16 +59,20 @@ public class IndexController {
 			}
 		}
 
-		List<String> filepaths = new ArrayList<>();
+		List<FileItem> resFiles = new ArrayList<>();
 		File[] files = new File(dir).listFiles(fileFilter);
 		if (files != null) {
 			List<File> items = new Recursion().init(files);
 			for (File item : items) {
-				String tmp = item.toString().replaceAll(dir, "").replaceAll("/", "_");
-				filepaths.add(tmp);
+				String tmpName = item.toString().replaceAll(dir, "").replaceAll("/", "_");
+				String tmpSize = Tools.getDataSize(item.length());
+				resFiles.add(new FileItem(tmpName, tmpSize));
 			}
 		}
-		model.addAttribute("filepaths", filepaths);
+		resFiles.sort((FileItem f1, FileItem f2) -> {
+				return f1.getName().compareTo(f2.getName());
+		});
+		model.addAttribute("files", resFiles);
 
 		return "index";
 	}
