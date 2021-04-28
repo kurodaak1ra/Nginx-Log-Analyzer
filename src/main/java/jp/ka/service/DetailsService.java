@@ -1,6 +1,6 @@
 package jp.ka.service;
 
-import jp.ka.bean.Item;
+import jp.ka.bean.LogItem;
 import jp.ka.utils.Tools;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class DetailsService {
 
 	public Map<String, Object> load(String filename, Long date, String proxy, String real) {
 		if (!dir.substring(dir.length()-1).equals("/")) dir = dir+"/";
-		List<Item> list = new ArrayList<>();
+		List<LogItem> list = new ArrayList<>();
 		Map<String, Object> map = new HashMap<>();
 		long count = 0;
 
@@ -48,7 +48,7 @@ public class DetailsService {
 					continue;
 				}
 
-				list.add(new Item(s[0], s[1], Tools.formatDateToString(timezone, t), s[3], s[4], s[5], s[6], s[7], s[8], s[9], s[10], req[0], req[1], req[2], s[12], s[13]));
+				list.add(new LogItem(s[0], s[1], Tools.formatDateToString(timezone, t), s[3], s[4], s[5], s[6], s[7], s[8], s[9], s[10], req[0], req[1], req[2], s[12], s[13]));
 				count++;
 			}
 		} catch (IOException e) {

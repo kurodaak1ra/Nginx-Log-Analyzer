@@ -11,12 +11,18 @@
   <div class="app">
     <p>日志文件列表</p>
     <ul>
-      <li th:each="filepath : ${filepaths}">
+      <li>
+        <span></span>
+        <span>文件名</span>
+        <span>文件大小</span>
+      </li>
+      <li th:each="file : ${files}">
         <span>
-          <a th:href="@{'charts/'+${filepath}}">图表</a>
-          <a th:href="@{'details/'+${filepath}}">列表</a>
+          <a th:href="@{'charts/'+${file.name}}">图表</a>
+          <a th:href="@{'details/'+${file.name}}">列表</a>
         </span>
-        <span th:text="${filepath.replaceAll('_', '/')}"></span>
+        <span th:text="${file.name.replaceAll('_', '/')}"></span>
+        <span th:text="${file.size}"></span>
       </li>
     </ul>
   </div>

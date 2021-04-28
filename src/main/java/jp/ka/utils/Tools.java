@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -178,6 +179,24 @@ public class Tools {
 		model.addAttribute("count", data.get("count"));
 
 		return model;
+	}
+
+	public static String getDataSize(long size) {
+		DecimalFormat formater = new DecimalFormat("####.00");
+		if (size < 1024) {
+			return size + " Byte";
+		} else if (size < 1024 * 1024) {
+			float kbSize = size / 1024f;
+			return formater.format(kbSize) + " KB";
+		} else if (size < 1024 * 1024 * 1024) {
+			float mbSize = size / 1024f / 1024f;
+			return formater.format(mbSize) + " MB";
+		} else if (size < 1024 * 1024 * 1024 * 1024) {
+			float gbSize = size / 1024f / 1024f / 1024f;
+			return formater.format(gbSize) + " GB";
+		} else {
+			return "size: error";
+		}
 	}
 
 }

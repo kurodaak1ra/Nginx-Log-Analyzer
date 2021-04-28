@@ -19,15 +19,38 @@ body {
 }
 
 .app ul li {
+  width: 100%;
+  display: table;
   line-height: 40px;
   border-bottom: 1px solid #000;
 }
 
+.app ul li:first-child {
+  color: #00bda3;
+}
+
+.app ul li > span {
+  display: table-cell;
+  vertical-align: middle;
+}
+
 .app ul li span:first-child {
-  margin-right: 10px;
+  width: 120px;
 }
 
 .app ul li span:first-child a {
   color: #00bda3;
   margin: 0 10px;
+}
+
+.app ul li span:nth-child(2) {
+  width: 230px;
+  padding-left: 8px;
+  border-left: 1px solid #00bda3;
+}
+
+.app ul li span:nth-child(3) {
+  font-size: 15px;
+  padding-left: 8px;
+  border-left: 1px solid #00bda3;
 }
