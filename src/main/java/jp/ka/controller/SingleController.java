@@ -20,6 +20,9 @@ public class SingleController {
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+	@Value("${ip_query_api}")
+	private String api;
+
 	@Value("${timezone}")
 	private String timezone;
 
@@ -62,6 +65,7 @@ public class SingleController {
 			Map<String, Object> map = detailsService.load(filename, sdf.parse(date).getTime(), null, null);
 			model.addAttribute("list", map.get("list"));
 			model.addAttribute("count", map.get("count"));
+			model.addAttribute("api", api);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -74,6 +78,7 @@ public class SingleController {
 		Map<String, Object> map = detailsService.load(filename, null, ip, null);
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("count", map.get("count"));
+		model.addAttribute("api", api);
 
 		return "details";
 	}
@@ -83,6 +88,7 @@ public class SingleController {
 		Map<String, Object> map = detailsService.load(filename, null, null, ip);
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("count", map.get("count"));
+		model.addAttribute("api", api);
 
 		return "details";
 	}

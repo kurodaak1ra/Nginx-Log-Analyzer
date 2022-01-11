@@ -18,6 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -53,7 +54,7 @@ public class Tools {
 			CountryResponse response = client.country(ipAddress);
 			Country country = response.getCountry();
 
-			if (country.getNames().get(lang) == null) {
+			if (Objects.isNull(country.getNames().get(lang))) {
 				return "NoFound";
 			}
 			return country.getNames().get(lang);
@@ -162,7 +163,7 @@ public class Tools {
 	}
 
 	public static Model chartModel(Model model, Map<String, Object>  data) {
-		if (data == null) {
+		if (Objects.isNull(data)) {
 			return null;
 		}
 
@@ -170,8 +171,8 @@ public class Tools {
 		model.addAttribute("browser", data.get("browser"));
 		model.addAttribute("httpCode", data.get("httpCode"));
 		model.addAttribute("visitTime", data.get("visitTime"));
-		model.addAttribute("ip", data.get("ip"));
-		model.addAttribute("country", data.get("country"));
+		model.addAttribute("cdnIP", data.get("cdnIP"));
+		model.addAttribute("cdnCountry", data.get("cdnCountry"));
 		model.addAttribute("realIP", data.get("realIP"));
 		model.addAttribute("realCountry", data.get("realCountry"));
 		model.addAttribute("method", data.get("method"));
@@ -182,18 +183,18 @@ public class Tools {
 	}
 
 	public static String getDataSize(long size) {
-		DecimalFormat formater = new DecimalFormat("####.00");
+		DecimalFormat format = new DecimalFormat("####.00");
 		if (size < 1024) {
 			return size + " Byte";
 		} else if (size < 1024 * 1024) {
 			float kbSize = size / 1024f;
-			return formater.format(kbSize) + " KB";
+			return format.format(kbSize) + " KB";
 		} else if (size < 1024 * 1024 * 1024) {
 			float mbSize = size / 1024f / 1024f;
-			return formater.format(mbSize) + " MB";
+			return format.format(mbSize) + " MB";
 		} else if (size < 1024 * 1024 * 1024 * 1024) {
 			float gbSize = size / 1024f / 1024f / 1024f;
-			return formater.format(gbSize) + " GB";
+			return format.format(gbSize) + " GB";
 		} else {
 			return "size: error";
 		}

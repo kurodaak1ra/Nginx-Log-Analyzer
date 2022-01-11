@@ -15,8 +15,8 @@
       <div id="browser-charts"></div>
       <div id="http-code-charts"></div>
       <div id="visit-time-charts"></div>
-      <div id="ip-charts"></div>
-      <div id="country-charts"></div>
+      <div id="cdn-ip-charts"></div>
+      <div id="cdn-country-charts"></div>
       <div id="real-ip-charts"></div>
       <div id="real-country-charts"></div>
       <div id="method-charts"></div>
@@ -55,21 +55,21 @@
   const browserEcharts = echarts.init(document.getElementById('browser-charts'), null, { renderer: 'svg' })
   browserEcharts.setOption(pieOption('浏览器', [[ ${browser} ]]))
   const httpCodeEcharts = echarts.init(document.getElementById('http-code-charts'), null, { renderer: 'svg' })
-  httpCodeEcharts.setOption(pieOption('http 状态码', [[ ${httpCode} ]]))
+  httpCodeEcharts.setOption(pieOption('HTTP 状态码', [[ ${httpCode} ]]))
   const visitTimeEcharts = echarts.init(document.getElementById('visit-time-charts'), null, { renderer: 'svg' })
   visitTimeEcharts.setOption(barOption('* 访问频次', [[ ${visitTime} ]]))
-  const ipEcharts = echarts.init(document.getElementById('ip-charts'), null, { renderer: 'svg' })
-  ipEcharts.setOption(barOption('* ip 地址', [[ ${ip} ]]))
-  const countryEcharts = echarts.init(document.getElementById('country-charts'), null, { renderer: 'svg' })
-  countryEcharts.setOption(barOption('国家', [[ ${country} ]]))
+  const cdnIpEcharts = echarts.init(document.getElementById('cdn-ip-charts'), null, { renderer: 'svg' })
+  cdnIpEcharts.setOption(barOption('* CDN IP 地址', [[ ${cdnIP} ]]))
+  const cdnCountryEcharts = echarts.init(document.getElementById('cdn-country-charts'), null, { renderer: 'svg' })
+  cdnCountryEcharts.setOption(barOption('CDN IP 国家', [[ ${cdnCountry} ]]))
   const realIpEcharts = echarts.init(document.getElementById('real-ip-charts'), null, { renderer: 'svg' })
-  realIpEcharts.setOption(barOption('* 真实 ip 地址', [[ ${realIP} ]]))
+  realIpEcharts.setOption(barOption('* 真实 IP 地址', [[ ${realIP} ]]))
   const realCountryEcharts = echarts.init(document.getElementById('real-country-charts'), null, { renderer: 'svg' })
-  realCountryEcharts.setOption(barOption('真实 ip 国家', [[ ${realCountry}]]))
+  realCountryEcharts.setOption(barOption('真实 IP 国家', [[ ${realCountry}]]))
   const methodEcharts = echarts.init(document.getElementById('method-charts'), null, { renderer: 'svg' })
   methodEcharts.setOption(pieOption('请求方式', [[ ${method} ]]))
   const fileTypeEcharts = echarts.init(document.getElementById('file-type-charts'), null, { renderer: 'svg' })
-  fileTypeEcharts.setOption(pieOption('访问的文件类型', [[ ${fileType} ]]))
+  fileTypeEcharts.setOption(pieOption('文件类型', [[ ${fileType} ]]))
 
   // 点击事件
   osEcharts.on('click', function (params) {
@@ -89,7 +89,7 @@
     const details = previousURI + 'details/day/'+params.name+'/'+filename[filename.length-1]
     winShow(charts, details)
   })
-  ipEcharts.on('click', function (params) {
+  cdnIpEcharts.on('click', function (params) {
     if (/charts\/ip\/proxy/.test(location.pathname)) return
     const filename = location.pathname.split("/");
     let previousURI = '/'
@@ -100,7 +100,7 @@
     const details = previousURI + 'details/ip/proxy/'+params.name+'/'+filename[filename.length-1]
     winShow(charts, details)
   })
-  countryEcharts.on('click', function (params) {
+  cdnCountryEcharts.on('click', function (params) {
   })
   realIpEcharts.on('click', function (params) {
     if (/charts\/ip\/real/.test(location.pathname)) return

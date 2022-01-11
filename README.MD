@@ -22,11 +22,11 @@ log_format main '$remote_addr #$http_x_forwarded_for #$time_local #$status '
 
 ### 使用方法
 ```
-[root@linux ~]# java -jar nginx-log-analyzer.jar --log_dir={nginx 日志目录路径} --timezone=Asia/Shanghai --ip_query_api=https://ip.zxinc.org/api.php?type=json&ip={addr} --country_lang=zh-CN --server.port=8080
+[root@linux ~]# java -jar nginx-log-analyzer.jar --log_dir={nginx 日志目录路径} --timezone=Asia/Hong_Kong --ip_query_api=https://ip.zxinc.org/api.php?type=json&ip={ip} --country_lang=zh-CN --server.port=8080
 ```
 > 注意事项：  
 > log_dir 参数必须指定，否则报错  
-> timezone 参数非必须指定，默认为 Asia/Shanghai  
+> timezone 参数非必须指定，默认为 Asia/Hong_Kong  
 > ip_query_api 参数非必须指定，默认为空  
 > country_lang 参数非必须指定，默认为 zh-CN  
 > server.port 参数非必须指定，默认启动在 8080 端口
@@ -54,6 +54,9 @@ log_format main '$remote_addr #$http_x_forwarded_for #$time_local #$status '
 ```
 修改 nginx 配置文件，新增 location
 
+location /favicon.ico {
+    proxy_pass http://127.0.0.1:8888;
+}
 location ~ ^/{你想要的路径}/ {
     proxy_pass http://127.0.0.1:8080;
     rewrite    /{你想要的路径}/(.*) /$1 break;

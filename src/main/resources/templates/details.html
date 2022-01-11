@@ -94,37 +94,23 @@
     }
   })
 
-  const http = new XMLHttpRequest()
-
-  function GET(ip) {
-    const api = [[ ${api} ]]
-    if (api === '' || ip === '-') return
+  async function GET(ip) {
     loading.style.display = 'table'
-    http.open('GET', api.replace('{addr}', ip))
-    http.send()
-    http.onreadystatechange = function() {
-      if (this.readyState === 4 && this.status === 200) {
-        pre.innerHTML = jsonHighlight(JSON.parse(http.response))
-        loading.style.display = 'none'
-        response.style.display = 'table'
-      }
+    try {
+      const resp = await fetch([[ ${api} ]].replace('{ip}', ip), {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        redirect: 'follow', // manual, *follow, error
+        referrer: '', // no-referrer
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      })
+      pre.innerHTML = jsonHighlight(await resp.json())
+    } catch (err) {
+      pre.innerHTML = err
     }
-  }
-
-  function POST(ip) {
-    const api = [[ ${api} ]]
-    if (api === '' || ip === '-') return
-    loading.style.display = 'table'
-    http.open('POST', api.replace('{addr}', ip), true)
-    http.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
-    http.send()
-    http.onreadystatechange = function() {
-      if(http.readyState == 4 && http.status == 200){
-        pre.innerHTML = jsonHighlight(JSON.parse(http.response))
-        loading.style.display = 'none'
-        response.style.display = 'table'
-      }
-    }
+    loading.style.display = 'none'
+    response.style.display = 'table'
   }
 
   function jsonHighlight(json) {

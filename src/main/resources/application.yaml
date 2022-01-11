@@ -3,7 +3,7 @@ server:
 
 log_dir: ""
 
-timezone: "Asia/Shanghai"
+timezone: "Asia/Hong_Kong"
 
 country_lang: "zh-CN"
 
@@ -18,7 +18,7 @@ spring:
     # 开启MVC thymeleaf 视图解析
     enabled: true
     encoding: utf-8
-    mode: HTML5
+    mode: HTML
     prefix: classpath:/templates/
     suffix: .html
 

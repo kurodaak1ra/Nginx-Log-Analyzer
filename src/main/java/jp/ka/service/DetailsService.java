@@ -36,7 +36,7 @@ public class DetailsService {
 				Date t = Tools.formatDate(s[2]);
 
 				// 指定日期查询
-				if (date != null && (t.getTime() < date || t.getTime() >= date+86400000)) {
+				if (date != null && (t.getTime() < date || t.getTime() >= date+24*60*60*1000)) {
 					continue;
 				}
 				// 指定 ip 查询（代理）
@@ -44,7 +44,7 @@ public class DetailsService {
 					continue;
 				}
 				// 指定 ip 查询（真实）
-				if (real != null && !real.equals(s[8])) {
+				if (real != null && !real.equals(s[1])) {
 					continue;
 				}
 

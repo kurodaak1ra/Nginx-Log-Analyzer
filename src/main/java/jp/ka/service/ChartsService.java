@@ -34,8 +34,8 @@ public class ChartsService {
 			Map<String, Integer> browser = new HashMap<>();
 			Map<String, Integer> httpCode = new HashMap<>();
 			Map<Long, Integer> visitTime = new HashMap<>();
-			Map<String, Integer> ip = new HashMap<>();
-			Map<String, Integer> country = new HashMap<>();
+			Map<String, Integer> cdnIP = new HashMap<>();
+			Map<String, Integer> cdnCountry = new HashMap<>();
 			Map<String, Integer> realIP = new HashMap<>();
 			Map<String, Integer> realCountry = new HashMap<>();
 			Map<String, Integer> method = new HashMap<>();
@@ -50,7 +50,7 @@ public class ChartsService {
 				Date t = Tools.formatDateSimple(timezone, s[2]);
 
 				// 指定日期查询
-				if (date != null && (t.getTime() < date || t.getTime() >= date+86400000)) {
+				if (date != null && (t.getTime() < date || t.getTime() >= date+24*60*60*1000)) {
 					continue;
 				}
 				// 指定 ip 查询（代理）
@@ -72,9 +72,9 @@ public class ChartsService {
 				// 访问时间
 				visitTime = visitTime(visitTime, t);
 				// ip 地址
-				ip = ip(ip, s[0]);
+				cdnIP = ip(cdnIP, s[0]);
 				// 国家
-				country = country(country, s[0]);
+				cdnCountry = country(cdnCountry, s[0]);
 				// 套 cf 后真实 ip
 				realIP = ip(realIP, s[1]);
 				// 套 cf 后真实 ip 的国家
@@ -91,8 +91,8 @@ public class ChartsService {
 			res.put("browser", browser);
 			res.put("httpCode", httpCode);
 			res.put("visitTime", visitTime);
-			res.put("ip", ip);
-			res.put("country", country);
+			res.put("cdnIP", cdnIP);
+			res.put("cdnCountry", cdnCountry);
 			res.put("realIP", realIP);
 			res.put("realCountry", realCountry);
 			res.put("method", method);
@@ -126,9 +126,9 @@ public class ChartsService {
 		return os;
 	}
 
-	private Map<String, Integer> browser(Map<String, Integer> browser, UserAgent ua) {
-		Browser tmpBrowser = ua.getBrowser();
-		String browserName = tmpBrowser.getName();
+	private Map<String, Integer> browser(Map<String, Integer> data, UserAgent ua) {
+		Browser browser = ua.getBrowser();
+		String browserName = browser.getName();
 		if (browserName.toLowerCase().contains("chrome")) {
 			browserName = "Chrome";
 		}
@@ -147,12 +147,12 @@ public class ChartsService {
 		if (browserName.toLowerCase().contains("internet explorer")) {
 			browserName = "Internet Explorer";
 		}
-		if (browser.containsKey(browserName)) {
-			browser.put(browserName, browser.get(browserName)+1);
+		if (data.containsKey(browserName)) {
+			data.put(browserName, data.get(browserName)+1);
 		} else {
-			browser.put(browserName, 1);
+			data.put(browserName, 1);
 		}
-		return browser;
+		return data;
 	}
 
 	private Map<String, Integer> httpCode(Map<String, Integer> data, String code) {
@@ -207,7 +207,7 @@ public class ChartsService {
 	private Map<String, Integer> fileType(Map<String, Integer> data, String uri) {
 		String extension = FilenameUtils.getExtension(uri.split("\\?")[0]);
 		extension = extension.toLowerCase();
-		if (extension == "") extension = "others";
+		if (extension.equals("")) extension = "others";
 		if (data.containsKey(extension)) {
 			data.put(extension, data.get(extension)+1);
 		} else {
